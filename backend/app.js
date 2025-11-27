@@ -5,17 +5,20 @@ require("dotenv").config();
 const db = require("./src/config/database");
 
 const cors = require("cors");
+
 app.use(cors());
+app.use(express.json());  
 
-
-// Middleware pour pouvoir lire le JSON envoyé dans les requêtes
-app.use(express.json());
+// Import des routes
+const authRoutes = require("./src/routes/authRoutes");
+app.use("/auth", authRoutes);
 
 // Route de test
 app.get("/", (req, res) => {
   res.send("Bienvenue sur l'API GreenBin");
 });
-//Route API
+
+// Route API
 app.get("/api", (req, res) => {
   res.json({ message: "Backend Ready" });
 });
@@ -24,3 +27,4 @@ app.get("/api", (req, res) => {
 app.listen(3000, () => {
   console.log("Serveur lancé sur http://localhost:3000");
 });
+
