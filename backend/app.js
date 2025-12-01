@@ -16,6 +16,9 @@ app.use("/auth", authRoutes);
 const wasteRoutes = require("./src/routes/wasteRoutes");
 app.use("/wastes", wasteRoutes);
 
+const userRoutes = require("./src/routes/userRoutes");
+app.use("/users", userRoutes);
+
 // Route de test
 app.get("/", (req, res) => {
   res.send("Bienvenue sur l'API GreenBin");
