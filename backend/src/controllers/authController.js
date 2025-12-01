@@ -70,5 +70,24 @@ module.exports = {
         }
       });
     });
-  }
+  },
+
+  // ------------ ME ------------
+  me: (req, res) => {
+  const query = "SELECT id, name, email FROM users WHERE id = ?";
+
+  db.query(query, [req.user.id], (err, result) => {
+    if (err) return res.status(500).json({ message: "Erreur serveur", err });
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Utilisateur introuvable" });
+    }
+
+    res.json({
+      message: "Profil récupéré avec succès",
+      user: result[0]
+    });
+  });
+}
+
 };
