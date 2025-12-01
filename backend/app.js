@@ -7,11 +7,14 @@ const db = require("./src/config/database");
 const cors = require("cors");
 
 app.use(cors());
-app.use(express.json());  
+app.use(express.json());
 
 // Import des routes
 const authRoutes = require("./src/routes/authRoutes");
 app.use("/auth", authRoutes);
+
+const wasteRoutes = require("./src/routes/wasteRoutes");
+app.use("/wastes", wasteRoutes);
 
 // Route de test
 app.get("/", (req, res) => {
@@ -27,4 +30,3 @@ app.get("/api", (req, res) => {
 app.listen(3000, () => {
   console.log("Serveur lancé sur http://localhost:3000");
 });
-
