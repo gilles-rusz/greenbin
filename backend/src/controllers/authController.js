@@ -55,10 +55,11 @@ module.exports = {
       }
 
       const token = jwt.sign(
-        { id: user.id, email: user.email },
+        { id: user.id, email: user.email, role: user.role },
         process.env.JWT_SECRET,
         { expiresIn: "24h" }
       );
+
 
       res.json({
         message: "Connexion réussie",
@@ -66,7 +67,8 @@ module.exports = {
         user: {
           id: user.id,
           name: user.name,
-          email: user.email
+          email: user.email,
+          role: user.role
         }
       });
     });
@@ -74,20 +76,20 @@ module.exports = {
 
   // ------------ ME ------------
   me: (req, res) => {
-  const query = "SELECT id, name, email FROM users WHERE id = ?";
+    const query = "SELECT id, name, email FROM users WHERE id = ?";
 
-  db.query(query, [req.user.id], (err, result) => {
-    if (err) return res.status(500).json({ message: "Erreur serveur", err });
+    db.query(query, [req.user.id], (err, result) => {
+      if (err) return res.status(500).json({ message: "Erreur serveur", err });
 
-    if (result.length === 0) {
-      return res.status(404).json({ message: "Utilisateur introuvable" });
-    }
+      if (result.length === 0) {
+        return res.status(404).json({ message: "Utilisateur introuvable" });
+      }
 
-    res.json({
-      message: "Profil récupéré avec succès",
-      user: result[0]
+      res.json({
+        message: "Profil récupéré avec succès",
+        user: result[0]
+      });
     });
-  });
-}
+  }
 
 };
