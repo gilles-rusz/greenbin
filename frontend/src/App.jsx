@@ -1,20 +1,37 @@
-import { useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router";
+
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard.jsx";
+import WastesList from "./pages/WastesList.jsx";
+import WasteForm from "./pages/WasteForm.jsx";
+import UsersList from "./pages/UsersList.jsx";
+import UserForm from "./pages/UserForm.jsx";
+
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
-  const [apiMessage, setApiMessage] = useState("");
-
-  useEffect(() => {
-    fetch("http://localhost:3000/api")
-      .then(res => res.json())
-      .then(data => setApiMessage(data.message))
-      .catch(err => console.error(err));
-  }, []);
-
   return (
-    <div style={{ textAlign: "center", padding: "40px" }}>
-      <h1>GreenBin Frontend Ready </h1>
-      <p>Backend says: {apiMessage || "waiting..."}</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/" element={<Login />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/wastes" element={<WastesList />} />
+          <Route path="/wastes/new" element={<WasteForm />} />
+          <Route path="/wastes/:id" element={<WasteForm />} />
+
+          <Route path="/users" element={<UsersList />} />
+          <Route path="/users/new" element={<UserForm />} />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
