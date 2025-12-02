@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router";
 
-import Login from "./pages/Login";
+import Login from "./pages/Login.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import WastesList from "./pages/WastesList.jsx";
 import WasteForm from "./pages/WasteForm.jsx";
