@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
-  // ------------ REGISTER ------------
+  // REGISTER 
   register: (req, res) => {
     const { name, email, password } = req.body;
 
@@ -30,7 +30,7 @@ module.exports = {
     });
   },
 
-  // ------------ LOGIN ------------
+  // LOGIN 
   login: (req, res) => {
     const { email, password } = req.body;
 
@@ -74,9 +74,9 @@ module.exports = {
     });
   },
 
-  // ------------ ME ------------
+  // ME 
   me: (req, res) => {
-    const query = "SELECT id, name, email FROM users WHERE id = ?";
+    const query = "SELECT id, name, email, role FROM users WHERE id = ?";
 
     db.query(query, [req.user.id], (err, result) => {
       if (err) return res.status(500).json({ message: "Erreur serveur", err });
