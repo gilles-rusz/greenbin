@@ -1,42 +1,146 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* ============================
+   🌿 THEME ECOLO - GREENBIN
+   ============================ */
+
+/* ----- VARIABLES ----- */
+:root {
+  --green-main: #4CAF50;
+  --green-dark: #388E3C;
+  --green-light: #C8E6C9;
+
+  --beige: #F5F5DC;
+  --white: #FFFFFF;
+  --grey: #E0E0E0;
+  --text-dark: #2E2E2E;
+
+  --radius: 12px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --transition: 0.25s ease;
+}
+
+/* ----- RESET ----- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background-color: var(--white);
+  color: var(--text-dark);
+  padding: 0;
+  margin: 0;
+}
+
+/* ----- LAYOUT ----- */
+header {
+  background: var(--green-main);
+  color: white;
+  padding: 20px;
   text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 30px auto;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* ----- BUTTONS ----- */
+.btn {
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.btn-primary {
+  background: var(--green-main);
+  color: white;
 }
 
+.btn-primary:hover {
+  background: var(--green-dark);
+}
+
+.btn-secondary {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
+.btn-secondary:hover {
+  background: var(--green-main);
+  color: white;
+}
+
+/* ----- FORMS ----- */
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--grey);
+  margin: 10px 0;
+  transition: var(--transition);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--green-main);
+  outline: none;
+  box-shadow: 0 0 4px rgba(76, 175, 80, 0.4);
+}
+
+form {
+  background: var(--beige);
+  padding: 25px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ----- CARDS ----- */
 .card {
-  padding: 2em;
+  background: white;
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
 }
 
-.read-the-docs {
-  color: #888;
+/* ----- TABLES ----- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid var(--grey);
+  text-align: left;
+}
+
+th {
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-weight: 600;
+}
+
+tr:hover {
+  background: #F1F8F6;
+}
+
+/* ----- ANIMATIONS ----- */
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

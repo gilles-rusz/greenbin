@@ -34,8 +34,12 @@ export default function UsersList() {
       ) : (
         <ul>
           {users.map((u) => (
-            <li key={u.id}>
+            <li key={u.id} style={{ marginBottom: "12px" }}>
               <strong>{u.name}</strong> — {u.email} ({u.role})
+
+              <Link to={`/users/${u.id}`}>
+                <button style={{ marginLeft: "10px" }}>Modifier</button>
+              </Link>
             </li>
           ))}
         </ul>
@@ -43,4 +47,3 @@ export default function UsersList() {
     </div>
   );
 }
-

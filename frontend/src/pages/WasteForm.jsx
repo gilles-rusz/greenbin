@@ -1,79 +1,97 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { createWaste, updateWaste, getWasteById } from "../services/wasteService";
+import api from "../services/api";
 
-export default function WasteForm() {
-  const { id } = useParams();      
+export default function UserForm() {
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const [waste, setWaste] = useState({
-    name: "",
-    category: "",
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("user");
 
   useEffect(() => {
-    if (id) {
-      async function fetchWaste() {
-        try {
-          const data = await getWasteById(id);
-          setWaste({ name: data.name, category: data.category });
-        } catch (err) {
-          console.error("Erreur récupération déchet", err);
-        }
-      }
-      fetchWaste();
-    }
-  }, [id]);
+    if (!id) return;
 
-  function handleChange(e) {
-    setWaste({ ...waste, [e.target.name]: e.target.value });
-  }
+    async function loadUser() {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await api.get(`/users/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        setName(res.data.name);
+        setEmail(res.data.email);
+        setRole(res.data.role);
+      } catch (err) {
+        console.error("Erreur chargement utilisateur", err);
+      }
+    }
+
+    loadUser();
+  }, [id]);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
+      const token = localStorage.getItem("token");
+
       if (id) {
-        await updateWaste(id, waste);
+        // UPDATE
+        await api.put(
+          `/users/${id}`,
+          { name, email, role },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
       } else {
-        await createWaste(waste);
+        // CREATE
+        await api.post(
+          "/users",
+          { name, email, role, password: "123456" },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
       }
 
-      navigate("/wastes");
+      navigate("/users");
     } catch (err) {
-      console.error("Erreur sauvegarde", err);
+      console.error("Erreur sauvegarde utilisateur", err);
       alert("Erreur lors de la sauvegarde");
     }
   }
 
   return (
     <div style={{ padding: "40px", color: "white" }}>
-      <h1>{id ? "Modifier un déchet" : "Ajouter un déchet"}</h1>
+      <h1>{id ? "Modifier un utilisateur" : "Créer un utilisateur"}</h1>
 
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", width: "300px" }}>
-        
-        <label>Nom</label>
+      <form onSubmit={handleSubmit}>
+        <label>Nom</label><br />
         <input
-          type="text"
-          name="name"
-          value={waste.name}
-          onChange={handleChange}
-          required
-        />
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={{ width: "300px", marginBottom: "15px" }}
+        /><br />
 
-        <label>Catégorie</label>
+        <label>Email</label><br />
         <input
-          type="text"
-          name="category"
-          value={waste.category}
-          onChange={handleChange}
-          required
-        />
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ width: "300px", marginBottom: "15px" }}
+        /><br />
 
-        <button type="submit" style={{ marginTop: "20px" }}>
-          {id ? "Modifier" : "Ajouter"}
-        </button>
+        <label>Rôle</label><br />
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          style={{ width: "300px", marginBottom: "20px" }}
+        >
+          <option value="user">Utilisateur</option>
+          <option value="admin">Administrateur</option>
+        </select>
+
+        <br />
+
+        <button>{id ? "Modifier" : "Créer"}</button>
       </form>
     </div>
   );
