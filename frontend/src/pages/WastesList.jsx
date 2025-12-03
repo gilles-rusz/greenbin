@@ -1,22 +1,25 @@
+
 import { useEffect, useState } from "react";
-import { getAllWastes } from "../services/wasteService";
+import { getAllWastes, deleteWaste } from "../services/wasteService";
 import { Link } from "react-router-dom";
 
 export default function WastesList() {
   const [wastes, setWastes] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getAllWastes();
-        setWastes(data);
-      } catch (err) {
-        console.error("Erreur récupération déchets", err);
-      }
-    }
+  async function loadData() {
+    const data = await getAllWastes();
+    setWastes(data);
+  }
 
-    fetchData();
+  useEffect(() => {
+    loadData();
   }, []);
+
+  async function handleDelete(id) {
+    if (!confirm("Supprimer ce déchet ?")) return;
+    await deleteWaste(id);
+    loadData(); // Recharge la liste
+  }
 
   return (
     <div style={{ padding: "40px", color: "white" }}>
@@ -31,14 +34,18 @@ export default function WastesList() {
       ) : (
         <ul>
           {wastes.map((w) => (
-            <li key={w.id} style={{ marginBottom: "8px" }}>
-              <Link
-                to={`/wastes/${w.id}`}
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                <strong>{w.name}</strong>
-              </Link>
-              {" - "}{w.category}
+            <li key={w.id}>
+              <strong>{w.name}</strong> - {w.category}
+
+              &nbsp; | &nbsp;
+
+              <Link to={`/wastes/${w.id}`}>Modifier</Link>
+
+              &nbsp; | &nbsp;
+
+              <button onClick={() => handleDelete(w.id)}>
+                Supprimer
+              </button>
             </li>
           ))}
         </ul>

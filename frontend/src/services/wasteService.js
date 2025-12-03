@@ -20,3 +20,8 @@ export async function getWasteById(id) {
   const response = await api.get(`/wastes/${id}`);
   return response.data;
 }
+
+export async function deleteWaste(id) {
+  const response = await api.delete(`/wastes/${id}`);
+  return response.data;
+}
