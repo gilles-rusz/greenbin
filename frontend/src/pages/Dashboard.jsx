@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import api from "../services/api";
 
@@ -38,37 +37,55 @@ export default function Dashboard() {
     loadData();
   }, []);
 
-
-  if (!user) return <h1 style={{ color: "white" }}>Chargement...</h1>;
+  if (!user) return <h1 className="loading-text">Chargement...</h1>;
 
   return (
-    <div style={{ padding: "40px", color: "white" }}>
-      <h1>Tableau de bord</h1>
+    <div className="dashboard-page fade-in">
 
-      <p><strong>Utilisateur :</strong> {user.name}</p>
-      <p><strong>Email :</strong> {user.email}</p>
-      <p><strong>Rôle :</strong> {user.role}</p>
+      <h1 className="dashboard-title">Tableau de bord</h1>
 
-      <hr />
+      <div className="card user-info-card">
+        <p>
+          <strong style={{ color: "#2E7D32" }}>Utilisateur :</strong> {user.name}
+        </p>
+        <p>
+          <strong style={{ color: "#2E7D32" }}>Email :</strong> {user.email}
+        </p>
+        <p>
+          <strong style={{ color: "#2E7D32" }}>Rôle :</strong> {user.role}
+        </p>
+      </div>
 
-      <h2>Statistiques :</h2>
-      <p><strong>Déchets :</strong> {wasteCount}</p>
+      <h2 className="dashboard-subtitle">Statistiques</h2>
 
-      {user.role === "admin" && (
-        <p><strong>Utilisateurs :</strong> {userCount}</p>
-      )}
+      <div className="dashboard-grid">
 
-      <hr />
+        <div className="dashboard-card">
+          <div className="dashboard-number">{wasteCount}</div>
+          <div className="dashboard-label">Types de déchets</div>
+        </div>
 
-      <a href="/wastes">
-        <button style={{ marginRight: "10px" }}>Gérer les déchets</button>
-      </a>
+        {user.role === "admin" && (
+          <div className="dashboard-card">
+            <div className="dashboard-number">{userCount}</div>
+            <div className="dashboard-label">Utilisateurs</div>
+          </div>
+        )}
 
-      {user.role === "admin" && (
-        <a href="/users">
-          <button>Gérer les utilisateurs</button>
+      </div>
+
+      <div className="dashboard-actions">
+        <a href="/wastes">
+          <button className="btn btn-primary">Gérer les déchets</button>
         </a>
-      )}
+
+        {user.role === "admin" && (
+          <a href="/users">
+            <button className="btn btn-secondary">Gérer les utilisateurs</button>
+          </a>
+        )}
+      </div>
+
     </div>
   );
 }

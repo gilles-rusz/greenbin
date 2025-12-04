@@ -1,80 +1,119 @@
-
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { createWaste, updateWaste, getWasteById } from "../services/wasteService";
+import { useParams, useNavigate } from "react-router-dom";
+import api from "../services/api";
 
 export default function WasteForm() {
-  const { id } = useParams();      
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const [waste, setWaste] = useState({
+  const [form, setForm] = useState({
     name: "",
     category: "",
   });
 
+  const isEditing = Boolean(id);
+
   useEffect(() => {
-    if (id) {
-      async function fetchWaste() {
-        try {
-          const data = await getWasteById(id);
-          setWaste({ name: data.name, category: data.category });
-        } catch (err) {
-          console.error("Erreur récupération déchet", err);
-        }
-      }
-      fetchWaste();
+    if (isEditing) {
+      loadWaste();
     }
   }, [id]);
 
+  async function loadWaste() {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await api.get(`/wastes/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      setForm({
+        name: res.data.name,
+        category: res.data.category,
+      });
+
+    } catch (err) {
+      console.error("Erreur chargement déchet", err);
+    }
+  }
+
   function handleChange(e) {
-    setWaste({ ...waste, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      if (id) {
-        await updateWaste(id, waste);
+      const token = localStorage.getItem("token");
+
+      if (isEditing) {
+        await api.put(`/wastes/${id}`, form, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       } else {
-        await createWaste(waste);
+        await api.post("/wastes", form, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       }
 
       navigate("/wastes");
+
     } catch (err) {
-      console.error("Erreur sauvegarde", err);
-      alert("Erreur lors de la sauvegarde");
+      console.error("Erreur enregistrement déchet", err);
     }
   }
 
   return (
-    <div style={{ padding: "40px", color: "white" }}>
-      <h1>{id ? "Modifier un déchet" : "Ajouter un déchet"}</h1>
+    <div className="waste-form-page fade-in">
 
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", width: "300px" }}>
-        
-        <label>Nom</label>
+      <h1 className="waste-form-title">
+        {isEditing ? "Modifier un déchet" : "Ajouter un déchet"}
+      </h1>
+
+      <form onSubmit={handleSubmit} className="waste-form-card">
+
+        <label>Nom du déchet</label>
         <input
           type="text"
           name="name"
-          value={waste.name}
+          value={form.name}
           onChange={handleChange}
           required
         />
 
         <label>Catégorie</label>
-        <input
-          type="text"
-          name="category"
-          value={waste.category}
-          onChange={handleChange}
+        <select 
+          name="category" 
+          value={form.category} 
+          onChange={handleChange} 
           required
-        />
+        >
+          <option value="">-- Choisir une catégorie --</option>
+          <option value="recyclable">Recyclable</option>
+          <option value="organique">Organique</option>
+          <option value="dangereux">Dangereux</option>
+          <option value="autre">Autre</option>
+        </select>
 
-        <button type="submit" style={{ marginTop: "20px" }}>
-          {id ? "Modifier" : "Ajouter"}
-        </button>
+        <div className="waste-form-actions">
+
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => navigate("/wastes")}
+          >
+            Annuler
+          </button>
+
+          <button className="btn btn-primary" type="submit">
+            {isEditing ? "Enregistrer" : "Créer"}
+          </button>
+
+        </div>
+
       </form>
+
     </div>
   );
 }

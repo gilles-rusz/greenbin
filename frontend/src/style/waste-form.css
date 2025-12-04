@@ -1,0 +1,45 @@
+.waste-form-page {
+  padding: 40px;
+  max-width: 600px;
+  margin: auto;
+  animation: fadeIn 0.6s ease;
+}
+
+.waste-form-title {
+  font-size: 2rem;
+  color: var(--green-dark);
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.waste-form-card {
+  background: var(--beige);
+  padding: 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+.waste-form-card label {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.waste-form-card input,
+.waste-form-card select {
+  margin-top: 6px;
+}
+
+/* Boutons */
+.waste-form-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.waste-form-actions .btn {
+  width: 48%;
+  padding: 12px;
+  font-size: 1rem;
+}

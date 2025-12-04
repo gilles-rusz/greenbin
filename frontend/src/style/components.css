@@ -1,0 +1,172 @@
+.btn {
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+/* Bouton principal */
+.btn-primary {
+  background: var(--green-main);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--green-dark);
+}
+
+/* Bouton secondaire */
+.btn-secondary {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
+.btn-secondary:hover {
+  background: var(--green-main);
+  color: white;
+}
+
+/* Bouton rouge suppression */
+.btn-danger {
+  background: #ffdddd;
+  color: #b30000;
+}
+
+.btn-danger:hover {
+  background: #ffbbbb;
+}
+
+/* Bouton neutre gris */
+.btn-neutral {
+  background: var(--grey);
+  color: var(--text-dark);
+}
+
+.btn-neutral:hover {
+  background: #d2d2d2;
+}
+
+
+/* ------- FORM INPUTS ------- */
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--grey);
+  margin: 10px 0;
+  transition: var(--transition);
+  background: #fff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--green-main);
+  outline: none;
+  box-shadow: 0 0 4px rgba(76, 175, 80, 0.4);
+}
+
+/* Placeholder */
+input::placeholder {
+  color: #7a7a7a;
+}
+
+
+/* ------- CARD ------- */
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+/* Card spéciale dashboard */
+.card-highlight {
+  border-left: 6px solid var(--green-main);
+}
+
+
+/* ------- TABLE ------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th,
+td {
+  padding: 14px;
+  border-bottom: 1px solid var(--grey);
+  text-align: left;
+}
+
+th {
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-weight: 600;
+}
+
+tr:hover td {
+  background: #f1f8f6;
+}
+
+
+/* ------- BADGES ------- */
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Exemple de badge vert */
+.badge-green {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
+/* Exemple de badge gris */
+.badge-grey {
+  background: var(--grey);
+  color: var(--text-dark);
+}
+
+
+/* ------- SPACERS ------- */
+
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.mt-30 { margin-top: 30px; }
+
+.mb-10 { margin-bottom: 10px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-30 { margin-bottom: 30px; }
+
+
+/* ------- FLEX UTILS ------- */
+
+.flex {
+  display: flex;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

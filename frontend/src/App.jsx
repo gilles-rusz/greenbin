@@ -2,7 +2,8 @@ import {
   BrowserRouter,
   Routes,
   Route,
-} from "react-router";
+} from "react-router-dom";
+
 
 import Login from "./pages/Login.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -24,7 +25,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/wastes" element={<WastesList />} />
           <Route path="/wastes/new" element={<WasteForm />} />
-          <Route path="/wastes/:id" element={<WasteForm />} />
+          <Route path="/wastes/edit/:id" element={<WasteForm />} />
+
 
           <Route path="/users" element={<UsersList />} />
           <Route path="/users/new" element={<UserForm />} />

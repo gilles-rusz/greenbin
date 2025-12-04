@@ -1,56 +1,99 @@
-
 import { useEffect, useState } from "react";
-import { getAllWastes, deleteWaste } from "../services/wasteService";
-import { Link } from "react-router-dom";
+import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function WastesList() {
   const [wastes, setWastes] = useState([]);
-
-  async function loadData() {
-    const data = await getAllWastes();
-    setWastes(data);
-  }
+  const navigate = useNavigate();
 
   useEffect(() => {
-    loadData();
+    loadWastes();
   }, []);
 
-  async function handleDelete(id) {
-    if (!confirm("Supprimer ce déchet ?")) return;
-    await deleteWaste(id);
-    loadData(); // Recharge la liste
+  async function loadWastes() {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await api.get("/wastes", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      setWastes(res.data);
+    } catch (err) {
+      console.error("Erreur chargement déchets", err);
+    }
+  }
+
+  async function deleteWaste(id) {
+    if (!confirm("Supprimer ce type de déchet ?")) return;
+
+    try {
+      const token = localStorage.getItem("token");
+
+      await api.delete(`/wastes/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      loadWastes();
+    } catch (err) {
+      console.error("Erreur suppression déchet", err);
+    }
   }
 
   return (
-    <div style={{ padding: "40px", color: "white" }}>
-      <h1>Liste des déchets</h1>
+    <div className="wastes-list-page fade-in">
 
-      <Link to="/wastes/new">
-        <button style={{ marginBottom: "20px" }}>Ajouter un déchet</button>
-      </Link>
+      <div className="wastes-list-header">
+        <h1 className="wastes-list-title">Liste des déchets</h1>
 
-      {wastes.length === 0 ? (
-        <p>Aucun déchet trouvé.</p>
-      ) : (
-        <ul>
-          {wastes.map((w) => (
-            <li key={w.id}>
-              <strong>{w.name}</strong> - {w.category}
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate("/wastes/new")}
+        >
+          Ajouter un déchet
+        </button>
+      </div>
 
-              &nbsp; | &nbsp;
+      <table className="wastes-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Catégorie</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
 
-              <Link to={`/wastes/${w.id}`}>Modifier</Link>
+        <tbody>
+          {wastes.map((waste) => (
+            <tr key={waste.id}>
+              <td>{waste.name}</td>
+              <td>{waste.category}</td>
 
-              &nbsp; | &nbsp;
+              <td>
+                <div className="action-buttons">
 
-              <button onClick={() => handleDelete(w.id)}>
-                Supprimer
-              </button>
-            </li>
+                  <button
+                    className="btn btn-edit"
+                    onClick={() => navigate(`/wastes/edit/${waste.id}`)}
+                  >
+                    Modifier
+                  </button>
+
+                  <button
+                    className="btn btn-delete"
+                    onClick={() => deleteWaste(waste.id)}
+                  >
+                    Supprimer
+                  </button>
+
+                </div>
+              </td>
+            </tr>
           ))}
-        </ul>
-      )}
+        </tbody>
+
+      </table>
+
     </div>
   );
 }
-

@@ -1,0 +1,75 @@
+.users-list-page {
+  padding: 40px;
+  animation: fadeIn 0.6s ease;
+}
+
+.users-list-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--green-dark);
+  margin-bottom: 25px;
+}
+
+/* Bouton ajouter */
+.users-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.users-list-header .btn {
+  padding: 10px 18px;
+}
+
+/* TABLEAU */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.users-table th {
+  background: var(--green-light);
+  color: var(--green-dark);
+  padding: 14px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.users-table td {
+  padding: 12px;
+  background: var(--white);
+  border-bottom: 1px solid var(--grey);
+}
+
+.users-table tr:hover td {
+  background: #f1f8f6;
+}
+
+/* Boutons actions */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-edit {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
+.btn-edit:hover {
+  background: var(--green-main);
+  color: white;
+}
+
+.btn-delete {
+  background: #ffdddd;
+  color: #b30000;
+}
+
+.btn-delete:hover {
+  background: #ffbbbb;
+}
