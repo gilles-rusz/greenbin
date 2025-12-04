@@ -1,0 +1,66 @@
+/* ============================
+   🌿 DASHBOARD
+   ============================ */
+
+.dashboard-page {
+  padding: 20px;
+  color: #2E2E2E;
+}
+
+/* Titre */
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2E7D32;
+  margin-bottom: 20px;
+}
+
+/* Carte utilisateur */
+.user-info-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  margin-bottom: 30px;
+}
+
+/* Sous-titre */
+.dashboard-subtitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #388E3C;
+  margin-top: 20px;
+}
+
+/* Grille */
+.dashboard-grid {
+  display: flex;
+  gap: 20px;
+}
+
+/* Cartes stats */
+.dashboard-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  flex: 1;
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+
+.dashboard-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2E7D32;
+}
+
+.dashboard-label {
+  margin-top: 5px;
+  color: #555;
+}
+
+/* Actions */
+.dashboard-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}

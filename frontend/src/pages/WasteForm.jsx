@@ -1,35 +1,45 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
 
-export default function UserForm() {
+export default function WasteForm() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("user");
+  const [form, setForm] = useState({
+    name: "",
+    category: "",
+  });
+
+  const isEditing = Boolean(id);
 
   useEffect(() => {
-    if (!id) return;
-
-    async function loadUser() {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await api.get(`/users/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-
-        setName(res.data.name);
-        setEmail(res.data.email);
-        setRole(res.data.role);
-      } catch (err) {
-        console.error("Erreur chargement utilisateur", err);
-      }
+    if (isEditing) {
+      loadWaste();
     }
-
-    loadUser();
   }, [id]);
+
+  async function loadWaste() {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await api.get(`/wastes/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      setForm({
+        name: res.data.name,
+        category: res.data.category,
+      });
+
+    } catch (err) {
+      console.error("Erreur chargement déchet", err);
+    }
+  }
+
+  function handleChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -37,62 +47,73 @@ export default function UserForm() {
     try {
       const token = localStorage.getItem("token");
 
-      if (id) {
-        // UPDATE
-        await api.put(
-          `/users/${id}`,
-          { name, email, role },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+      if (isEditing) {
+        await api.put(`/wastes/${id}`, form, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       } else {
-        // CREATE
-        await api.post(
-          "/users",
-          { name, email, role, password: "123456" },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        await api.post("/wastes", form, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       }
 
-      navigate("/users");
+      navigate("/wastes");
+
     } catch (err) {
-      console.error("Erreur sauvegarde utilisateur", err);
-      alert("Erreur lors de la sauvegarde");
+      console.error("Erreur enregistrement déchet", err);
     }
   }
 
   return (
-    <div style={{ padding: "40px", color: "white" }}>
-      <h1>{id ? "Modifier un utilisateur" : "Créer un utilisateur"}</h1>
+    <div className="waste-form-page fade-in">
 
-      <form onSubmit={handleSubmit}>
-        <label>Nom</label><br />
+      <h1 className="waste-form-title">
+        {isEditing ? "Modifier un déchet" : "Ajouter un déchet"}
+      </h1>
+
+      <form onSubmit={handleSubmit} className="waste-form-card">
+
+        <label>Nom du déchet</label>
         <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          style={{ width: "300px", marginBottom: "15px" }}
-        /><br />
+          type="text"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
 
-        <label>Email</label><br />
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ width: "300px", marginBottom: "15px" }}
-        /><br />
-
-        <label>Rôle</label><br />
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          style={{ width: "300px", marginBottom: "20px" }}
+        <label>Catégorie</label>
+        <select 
+          name="category" 
+          value={form.category} 
+          onChange={handleChange} 
+          required
         >
-          <option value="user">Utilisateur</option>
-          <option value="admin">Administrateur</option>
+          <option value="">-- Choisir une catégorie --</option>
+          <option value="recyclable">Recyclable</option>
+          <option value="organique">Organique</option>
+          <option value="dangereux">Dangereux</option>
+          <option value="autre">Autre</option>
         </select>
 
-        <br />
+        <div className="waste-form-actions">
 
-        <button>{id ? "Modifier" : "Créer"}</button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => navigate("/wastes")}
+          >
+            Annuler
+          </button>
+
+          <button className="btn btn-primary" type="submit">
+            {isEditing ? "Enregistrer" : "Créer"}
+          </button>
+
+        </div>
+
       </form>
+
     </div>
   );
 }

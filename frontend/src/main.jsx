@@ -16,6 +16,7 @@ import "./style/waste-form.css";
 import "./style/animations.css";
 
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
