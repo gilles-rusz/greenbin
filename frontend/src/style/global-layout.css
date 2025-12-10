@@ -133,10 +133,6 @@ footer {
   color: var(--green-dark);
   font-size: 1.5rem;
 }
-/* ============================
-   🌿 LAYOUT GLOBAL SIMPLE
-   S'applique à toutes les pages
-   ============================ */
 
 /* Corps de page */
 body {
@@ -217,9 +213,4 @@ td {
 th {
   background: #c8e6c9;
   color: #2E7D32;
-}
-/* Fix texte du dashboard devenu blanc à cause d'autres fichiers */
-.dashboard-page,
-.dashboard-page * {
-  color: #2E2E2E !important;
 }

@@ -9,6 +9,9 @@ module.exports = {
     } catch (error) {
       res.status(500).json({ message: "Erreur serveur", error });
     }
+
+
+    
   },
 
   // GET /wastes/:id
