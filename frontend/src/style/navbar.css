@@ -24,6 +24,10 @@
   gap: 25px;
   align-items: center;
 }
+.navbar-links {
+  z-index: 999; 
+}
+
 
 .navbar-links a {
   color: white;
@@ -51,34 +55,38 @@
   cursor: pointer;
 }
 
+
 /* --------------------------
     VERSION MOBILE
 --------------------------- */
 @media (max-width: 768px) {
 
-  /* afficher le burger */
+  .navbar {
+    height: 80px;           
+    padding: 15px 20px;
+  }
+
   .burger {
     display: block;
   }
 
-  /* cacher les liens par défaut */
   .navbar-links {
-    display: none;
-
     position: absolute;
-    top: 60px;
+    top: 80px;              
     right: 0;
     width: 200px;
+
     background: #2c5f2d;
+    padding: 20px;
     flex-direction: column;
     gap: 15px;
-    padding: 20px;
+    display: none;
+
+    border-radius: 0 0 10px 10px; 
+    z-index: 999;
   }
 
-  /* quand le menu est ouvert */
   .navbar-links.open {
     display: flex;
   }
 }
-
-
