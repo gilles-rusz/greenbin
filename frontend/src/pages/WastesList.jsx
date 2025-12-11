@@ -43,6 +43,7 @@ export default function WastesList() {
   return (
     <div className="wastes-list-page fade-in">
 
+      {/* HEADER */}
       <div className="wastes-list-header">
         <h1 className="wastes-list-title">Liste des déchets</h1>
 
@@ -54,45 +55,46 @@ export default function WastesList() {
         </button>
       </div>
 
-      <table className="wastes-table">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Catégorie</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {wastes.map((waste) => (
-            <tr key={waste.id}>
-              <td>{waste.name}</td>
-              <td>{waste.category}</td>
-
-              <td>
-                <div className="action-buttons">
-
-                  <button
-                    className="btn btn-edit"
-                    onClick={() => navigate(`/wastes/edit/${waste.id}`)}
-                  >
-                    Modifier
-                  </button>
-
-                  <button
-                    className="btn btn-delete"
-                    onClick={() => deleteWaste(waste.id)}
-                  >
-                    Supprimer
-                  </button>
-
-                </div>
-              </td>
+      {/* WRAPPER RESPONSIVE */}
+      <div className="table-wrapper">
+        <table className="wastes-table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Catégorie</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
 
-      </table>
+          <tbody>
+            {wastes.map((waste) => (
+              <tr key={waste.id}>
+                <td>{waste.name}</td>
+                <td>{waste.category}</td>
+
+                <td>
+                  <div className="action-buttons">
+                    <button
+                      className="btn btn-edit"
+                      onClick={() => navigate(`/wastes/edit/${waste.id}`)}
+                    >
+                      Modifier
+                    </button>
+
+                    <button
+                      className="btn btn-delete"
+                      onClick={() => deleteWaste(waste.id)}
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+      </div>
 
     </div>
   );

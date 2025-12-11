@@ -14,9 +14,7 @@ export default function UsersList() {
     try {
       const token = localStorage.getItem("token");
       const res = await api.get("/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       setUsers(res.data);
@@ -30,6 +28,7 @@ export default function UsersList() {
 
     try {
       const token = localStorage.getItem("token");
+
       await api.delete(`/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -42,6 +41,8 @@ export default function UsersList() {
 
   return (
     <div className="users-list-page fade-in">
+      
+      {/* HEADER */}
       <div className="users-list-header">
         <h1 className="users-list-title">Gestion des utilisateurs</h1>
 
@@ -53,49 +54,49 @@ export default function UsersList() {
         </button>
       </div>
 
-      <table className="users-table">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Email</th>
-            <th>Rôle</th>
-            <th style={{ width: "150px" }}>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {users.map((u) => (
-            <tr key={u.id}>
-              <td>{u.name}</td>
-              <td>{u.email}</td>
-              <td>{u.role}</td>
-
-              <td>
-                <div className="action-buttons">
-
-                  <button
-                    className="btn btn-edit"
-                    onClick={() => navigate(`/users/edit/${u.id}`)}
-                  >
-                   Modifier
-                  </button>
-
-                  <button
-                    className="btn btn-delete"
-                    onClick={() => deleteUser(u.id)}
-                  >
-                    Supprimer
-                  </button>
-
-                </div>
-              </td>
-
+      {/* WRAPPER POUR EVITER LE SCROLL ET CENTRER */}
+      <div className="table-wrapper">
+        <table className="users-table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Rôle</th>
+              <th style={{ width: "150px" }}>Actions</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
 
-      </table>
+          <tbody>
+            {users.map((u) => (
+              <tr key={u.id}>
+                <td>{u.name}</td>
+                <td>{u.email}</td>
+                <td>{u.role}</td>
+
+                <td>
+                  <div className="action-buttons">
+                    <button
+                      className="btn btn-edit"
+                      onClick={() => navigate(`/users/edit/${u.id}`)}
+                    >
+                      Modifier
+                    </button>
+
+                    <button
+                      className="btn btn-delete"
+                      onClick={() => deleteUser(u.id)}
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                </td>
+
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
     </div>
   );
 }
-

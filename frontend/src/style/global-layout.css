@@ -1,10 +1,19 @@
+/* ---------------- GLOBAL RESET ---------------- */
+
 body {
-  background: var(--white);
-  color: var(--text-dark);
+  background: #f5f7f4;
+  color: #2E2E2E;
   font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Container global utilisé dans toutes les pages */
+* {
+  box-sizing: border-box;
+}
+
+/* ---------------- PAGE CONTAINER GLOBAL ---------------- */
+
 .page-container {
   width: 90%;
   max-width: 1100px;
@@ -12,8 +21,7 @@ body {
   padding: 40px 20px;
 }
 
-
-/* ------- TITRES GLOBAUX ------- */
+/* ---------------- TITRES ---------------- */
 
 h1 {
   font-size: 2.2rem;
@@ -36,190 +44,59 @@ h3 {
   margin: 10px 0;
 }
 
+@media (max-width: 768px) {
+  h1, h2, h3 {
+    text-align: center;
+    font-size: 22px;
+  }
+}
 
-/* ------- LINKS ------- */
+/* ---------------- LINKS ---------------- */
 
 a {
   text-decoration: none;
   color: var(--green-main);
-  transition: var(--transition);
+  transition: 0.2s ease;
 }
 
 a:hover {
   color: var(--green-dark);
 }
 
+/* ---------------- BUTTONS ---------------- */
 
-/* ------- HEADER / NAVBAR ------- */
-
-header {
-  background: var(--green-main);
-  padding: 18px 30px;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: var(--shadow);
-}
-
-header h1 {
-  color: white;
-  margin: 0;
-  font-size: 1.7rem;
-}
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-links a {
-  color: white;
-  font-weight: 600;
-}
-
-.nav-links a:hover {
-  text-decoration: underline;
-}
-
-/* Burger menu mobile */
-.nav-burger {
-  display: none;
-  font-size: 2rem;
-  cursor: pointer;
-}
-
-/* Responsive navbar */
-@media (max-width: 750px) {
-  .nav-links {
-    display: none;
-  }
-
-  .nav-burger {
-    display: block;
-  }
-}
-
-
-/* ------- FOOTER OPTIONNEL ------- */
-
-footer {
-  margin-top: 40px;
-  text-align: center;
-  padding: 20px;
-  color: #555;
-  font-size: 0.95rem;
-}
-
-
-/* ------- MARGES UTILES ------- */
-
-.section {
-  margin-bottom: 40px;
-}
-
-.divider {
-  height: 1px;
-  background: var(--grey);
-  margin: 25px 0;
-}
-
-
-/* ------- LOADING TEXT ------- */
-
-.loading-text {
-  text-align: center;
-  margin-top: 50px;
-  color: var(--green-dark);
-  font-size: 1.5rem;
-}
-/* ============================
-   🌿 LAYOUT GLOBAL SIMPLE
-   S'applique à toutes les pages
-   ============================ */
-
-/* Corps de page */
-body {
-  background: #f5f7f4;
-  color: #2E2E2E;
-  font-family: "Inter", sans-serif;
-}
-
-/* Conteneur principal (toutes les pages) */
-#root {
-  padding: 30px;
-}
-
-/* Titres */
-h1 {
-  font-size: 2.2rem;
-  font-weight: bold;
-  color: #2E7D32;
-  margin-bottom: 20px;
-}
-
-h2 {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #388E3C;
-  margin: 20px 0 15px;
-}
-
-/* Boutons HTML classiques */
-button {
-  padding: 8px 14px;
+button, .btn {
+  padding: 10px 16px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  background: #4CAF50;
-  color: #fff;
   font-weight: 600;
   transition: 0.2s ease;
 }
 
-button:hover {
-  background: #388E3C;
+.btn-primary {
+  background: var(--green-main);
+  color: white;
 }
 
-/* Inputs et selects */
-input,
-select {
+.btn-primary:hover {
+  background: var(--green-dark);
+}
+
+.btn-secondary {
+  background: #ddd;
+}
+
+.btn-secondary:hover {
+  background: #bbb;
+}
+
+/* ---------------- RESPONSIVE TABLE WRAPPER ---------------- */
+
+.table-wrapper {
   width: 100%;
-  max-width: 500px;
-  padding: 10px 12px;
-  margin: 8px 0 14px;
-  border-radius: 8px;
-  border: 1px solid #cfd8dc;
-  background: #e3f2fd;
+  overflow-x: auto;
 }
 
-/* Paragraphes d'info (ex. user info dans dashboard) */
-p {
-  margin-bottom: 6px;
-}
 
-/* Tableau simple pour les listes (si tu les utilises) */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  max-width: 800px;
-  background: #fff;
-  margin-top: 15px;
-}
 
-th,
-td {
-  border-bottom: 1px solid #e0e0e0;
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  background: #c8e6c9;
-  color: #2E7D32;
-}
-/* Fix texte du dashboard devenu blanc à cause d'autres fichiers */
-.dashboard-page,
-.dashboard-page * {
-  color: #2E2E2E !important;
-}

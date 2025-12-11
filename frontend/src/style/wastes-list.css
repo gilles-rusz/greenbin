@@ -1,8 +1,10 @@
+/* ----- PAGE ----- */
 .wastes-list-page {
   padding: 40px;
   animation: fadeIn 0.6s ease;
 }
 
+/* ----- TITRE ----- */
 .wastes-list-title {
   font-size: 2rem;
   font-weight: bold;
@@ -10,21 +12,46 @@
   margin-bottom: 25px;
 }
 
-/* Header avec bouton ajouter */
+/* ----- HEADER (TITRE + BOUTON AJOUTER) ----- */
 .wastes-list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-/* Table des déchets */
+/* MOBILE VERSION */
+@media (max-width: 768px) {
+  .wastes-list-header {
+    flex-direction: column;      
+    gap: 15px;
+    text-align: center;
+  }
+
+  .wastes-list-header .btn-primary {
+    width: 100%;                 
+    max-width: 300px;           
+  }
+
+  .wastes-list-title {
+    font-size: 1.7rem;
+  }
+}
+
+/* ----- TABLE WRAPPER ----- */
+.table-wrapper {
+  overflow-x: auto;            
+  width: 100%;
+}
+
+/* ----- TABLE ----- */
 .wastes-table {
   width: 100%;
   border-collapse: collapse;
   box-shadow: var(--shadow);
   border-radius: var(--radius);
   overflow: hidden;
+  min-width: 300px;             
 }
 
 .wastes-table th {
@@ -32,7 +59,6 @@
   color: var(--green-dark);
   padding: 14px;
   text-align: left;
-  font-size: 1rem;
 }
 
 .wastes-table td {
@@ -45,7 +71,7 @@
   background: #f1f8f6;
 }
 
-/* Boutons d’actions */
+/* ----- BOUTONS ACTIONS ----- */
 .action-buttons {
   display: flex;
   gap: 10px;
@@ -68,4 +94,23 @@
 
 .btn-delete:hover {
   background: #ffbbbb;
+}
+
+/* ----- RESPONSIVE DES ACTION BUTTONS ----- */
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    width: 100%;
+  }
+}
+
+/* ----- TABLE RESPONSIVE FONT SIZE ----- */
+@media (max-width: 768px) {
+  .wastes-table {
+    font-size: 14px;
+  }
 }

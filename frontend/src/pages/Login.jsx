@@ -13,7 +13,16 @@ export default function Login() {
     try {
       const res = await api.post("/auth/login", { email, password });
 
+      // Vérifie ce que l'API renvoie en console :
+      console.log("LOGIN RESPONSE:", res.data);
+
+      // Stockage du token
       localStorage.setItem("token", res.data.token);
+
+      // Stockage du rôle utilisateur (admin / user)
+      // ⚠️ Assure-toi que ton API renvoie bien user.role
+      localStorage.setItem("role", res.data.user.role);
+
       navigate("/dashboard");
     } catch (err) {
       alert("Email ou mot de passe incorrect");
@@ -22,7 +31,6 @@ export default function Login() {
 
   return (
     <div className="login-page fade-in">
-
       <form className="login-form" onSubmit={handleSubmit}>
         <h1 className="login-title">Connexion</h1>
 
@@ -46,7 +54,6 @@ export default function Login() {
           Se connecter
         </button>
       </form>
-
     </div>
   );
 }
