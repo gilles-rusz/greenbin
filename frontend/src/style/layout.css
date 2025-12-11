@@ -1,0 +1,31 @@
+/* Conteneur global */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f7faf7;
+}
+
+/* Navbar à gauche */
+nav.navbar {
+  width: 220px;
+  padding: 20px;
+  background-color: #f2f7f2;
+  border-right: 1px solid #dde6dd;
+}
+
+/* Zone de contenu */
+.layout-content {
+  flex: 1;
+  padding: 40px;
+}
+.layout-content {
+  flex: 1;
+  padding: 40px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .layout-content {
+    padding: 20px;
+  }
+}

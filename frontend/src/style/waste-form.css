@@ -1,45 +1,91 @@
+/* ----- PAGE DU FORMULAIRE ----- */
 .waste-form-page {
-  padding: 40px;
-  max-width: 600px;
-  margin: auto;
-  animation: fadeIn 0.6s ease;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
 }
 
+/* Titre */
 .waste-form-title {
   font-size: 2rem;
+  font-weight: bold;
   color: var(--green-dark);
   margin-bottom: 25px;
   text-align: center;
-  font-weight: bold;
 }
 
+/* ----- CARTE DU FORMULAIRE ----- */
 .waste-form-card {
-  background: var(--beige);
-  padding: 30px;
-  border-radius: var(--radius);
+  background: var(--white);
+  width: 100%;
+  max-width: 500px;
+
+  padding: 25px;
+  border-radius: 12px;
   box-shadow: var(--shadow);
-  margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
+/* Labels */
 .waste-form-card label {
   font-weight: 600;
-  color: var(--text-dark);
+  margin-top: 5px;
 }
 
+/* ----- CHAMPS (FIX RESPONSIVE AJOUTÉ) ----- */
 .waste-form-card input,
 .waste-form-card select {
-  margin-top: 6px;
+  width: 100%;          /* ← FIX 1 : permet au formulaire de se réduire */
+  max-width: 100%;      /* ← FIX 2 : empêche un héritage externe */
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--grey);
+  font-size: 1rem;
+  background: #f9faf9;
 }
 
-/* Boutons */
+/* ----- BOUTONS ----- */
 .waste-form-actions {
   margin-top: 20px;
+
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 15px;
 }
 
 .waste-form-actions .btn {
-  width: 48%;
-  padding: 12px;
-  font-size: 1rem;
+  min-width: 120px;
+}
+
+/* ----- VERSION MOBILE ----- */
+@media (max-width: 768px) {
+
+  .waste-form-page {
+    padding: 25px 15px;
+  }
+
+  .waste-form-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .waste-form-card {
+    padding: 20px;
+    max-width: 100%;     /* ← important */
+  }
+
+  .waste-form-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .waste-form-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
 }

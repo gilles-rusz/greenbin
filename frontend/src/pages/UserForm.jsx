@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
+import "../style/user-form.css"; // <-- IMPORTANT : import du CSS responsive
 
 export default function UserForm() {
   const { id } = useParams();
@@ -112,7 +113,11 @@ export default function UserForm() {
         </select>
 
         <div className="user-form-actions">
-          <button className="btn btn-secondary" type="button" onClick={() => navigate("/users")}>
+          <button
+            className="btn btn-secondary"
+            type="button"
+            onClick={() => navigate("/users")}
+          >
             Annuler
           </button>
 
@@ -125,4 +130,3 @@ export default function UserForm() {
     </div>
   );
 }
-

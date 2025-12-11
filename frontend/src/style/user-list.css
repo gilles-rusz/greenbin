@@ -1,34 +1,60 @@
+/* ----- PAGE USERS ----- */
 .users-list-page {
-  padding: 40px;
+  padding: 40px 20px;
+  max-width: 1100px;
+  margin: auto;
   animation: fadeIn 0.6s ease;
 }
 
+/* Titre */
 .users-list-title {
   font-size: 2rem;
   font-weight: bold;
   color: var(--green-dark);
   margin-bottom: 25px;
+  text-align: center;
 }
 
-/* Bouton ajouter */
+/* Header (titre + bouton) */
 .users-list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.users-list-header .btn {
-  padding: 10px 18px;
+/* Responsive header */
+@media (max-width: 768px) {
+  .users-list-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .users-list-header .btn-primary {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .users-list-title {
+    font-size: 1.7rem;
+  }
 }
 
-/* TABLEAU */
+/* ----- TABLE WRAPPER ----- */
+.table-wrapper {
+  overflow-x: auto;    /* Empêche le scroll horizontal de la page */
+  width: 100%;
+}
+
+/* ----- TABLE USERS ----- */
 .users-table {
   width: 100%;
   border-collapse: collapse;
   box-shadow: var(--shadow);
   border-radius: var(--radius);
   overflow: hidden;
+  min-width: 300px;   
 }
 
 .users-table th {
@@ -36,7 +62,6 @@
   color: var(--green-dark);
   padding: 14px;
   text-align: left;
-  font-size: 1rem;
 }
 
 .users-table td {
@@ -49,7 +74,7 @@
   background: #f1f8f6;
 }
 
-/* Boutons actions */
+/* ----- ACTION BUTTONS ----- */
 .action-buttons {
   display: flex;
   gap: 10px;
@@ -72,4 +97,26 @@
 
 .btn-delete:hover {
   background: #ffbbbb;
+}
+
+/* ----- RESPONSIVE ACTION BUTTONS ----- */
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+
+  .users-table th:nth-child(4) {
+    width: 100px !important;
+  }
+}
+
+/* ----- RESPONSIVE TABLE FONT SIZE ----- */
+@media (max-width: 768px) {
+  .users-table {
+    font-size: 14px;
+  }
 }
