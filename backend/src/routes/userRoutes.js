@@ -6,9 +6,11 @@ const auth = require("../middleware/authMiddleware");
 const isAdmin = require("../middleware/adminMiddleware");
 
 router.get("/", auth, isAdmin, userController.getAll);
-router.get("/id /:id", auth, isAdmin, userController.getById);
+router.get("/:id", auth, isAdmin, userController.getById);
 router.post("/", auth, isAdmin, userController.create);
-router.put("/id /:id", auth, isAdmin, userController.update);
-router.delete("/id /:id", auth, isAdmin, userController.delete);
+router.put("/:id", auth, isAdmin, userController.update);
+router.delete("/:id", auth, isAdmin, userController.delete);
 
 module.exports = router;
+
+

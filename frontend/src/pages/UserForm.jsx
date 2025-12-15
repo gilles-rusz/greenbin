@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
-import "../style/user-form.css"; // <-- IMPORTANT : import du CSS responsive
+import "../style/user-form.css";
 
 export default function UserForm() {
   const { id } = useParams();
@@ -23,7 +23,7 @@ export default function UserForm() {
   async function loadUser() {
     try {
       const token = localStorage.getItem("token");
-      const res = await api.get(`/users/id/${id}`, {
+      const res = await api.get(`/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -50,7 +50,7 @@ export default function UserForm() {
       const token = localStorage.getItem("token");
 
       if (isEditing) {
-        await api.put(`/users/id/${id}`, form, {
+        await api.put(`/users/${id}`, form, {
           headers: { Authorization: `Bearer ${token}` },
         });
       } else {
